@@ -42,9 +42,9 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
 ## 4. Sıradaki Görevler (Yapılacaklar Listesi - Backlog)
 
 *   **Temel Kurulum:**
-    *   [ ] Veritabanı seçimi: Firebase veya Supabase üzerine nihai karar verilmesi.
+    *   [x] Veritabanı seçimi: Firebase olarak belirlendi.
     *   [ ] Next.js projesinin oluşturulması: `npx create-next-app@latest medi-mind-mvp`.
-    *   [ ] Seçilen BaaS platformunun (Firebase/Supabase) Next.js projesine temel entegrasyonu.
+    *   [ ] Firebase projesinin oluşturulması ve Next.js projesine temel entegrasyonu.
     *   [ ] Temel klasör yapısının (components, services, utils vb.) oluşturulması.
     *   [ ] ESLint ve Prettier kurulumu ve yapılandırılması.
 *   **Hasta Arayüzü Geliştirme (Sohbet Ekranı):**
@@ -65,8 +65,8 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
     *   [ ] QR kod okuma işlevselliği için kütüphane entegrasyonu.
     *   [ ] Okunan QR kod verisinden (konuşma özeti) bilgilerin panelde gösterilmesi.
 *   **Veritabanı İşlemleri (MVP için opsiyonel/basit tutulabilir):**
-    *   [ ] Konuşma özetlerinin (eğer QR kod içinde taşınmayacaksa) veritabanına kaydedilmesi.
-    *   [ ] Doktor panelinde özetlerin veritabanından çekilmesi.
+    *   [ ] Konuşma özetlerinin (eğer QR kod içinde taşınmayacaksa) Firestore veritabanına kaydedilmesi.
+    *   [ ] Doktor panelinde özetlerin Firestore'dan çekilmesi.
 *   **Test ve Dağıtım:**
     *   [ ] Temel işlevlerin manuel testi.
     *   [ ] Vercel veya Netlify üzerine ilk dağıtım (deployment).
@@ -75,7 +75,7 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
 
 *   Henüz geliştirme aşamasına geçilmediği için kod tabanlı bir sorun bulunmamaktadır.
 *   **Karar Bekleyenler:**
-    *   Veritabanı (Firebase/Supabase) seçimi.
+    *   ~~Veritabanı (Firebase/Supabase) seçimi.~~ Firebase olarak belirlendi.
     *   UI için kullanılacak stil çözümü (Tailwind CSS, CSS Modules vb.).
 
 Bu ilerleme durumu, projenin gelişimine paralel olarak düzenli olarak güncellenecektir. 

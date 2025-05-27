@@ -10,8 +10,8 @@
     *   *Açıklama:* Basit ve orta karmaşıklıktaki backend işlemleri için Next.js'in kendi API rota sistemi MVP için yeterli olacaktır.
 *   **Yapay Zeka Servisi:** OpenAI API (GPT modelleri, örn. GPT-3.5-turbo veya GPT-4)
     *   *Açıklama:* Doğal dil işleme, soru cevaplama ve metin özetleme yetenekleri için kullanılacak.
-*   **Veritabanı (BaaS - Backend as a Service):** Firebase veya Supabase
-    *   *Açıklama:* Henüz karar verilmedi. Kullanıcı kimlik doğrulama, veri saklama (konuşma özetleri, gelecekte kullanıcı verileri) ve potansiyel olarak gerçek zamanlı özellikler için kullanılacak.
+*   **Veritabanı (BaaS - Backend as a Service):** Firebase
+    *   *Açıklama:* Karar verildi. Kullanıcı kimlik doğrulama, veri saklama (Firestore - konuşma özetleri, gelecekte kullanıcı verileri) ve potansiyel olarak gerçek zamanlı özellikler için kullanılacak.
 *   **Stil ve CSS:** Tailwind CSS veya CSS Modülleri / Styled Components
     *   *Açıklama:* Hızlı ve tutarlı UI geliştirme için Tailwind CSS popüler bir seçenektir. Alternatif olarak CSS Modülleri veya Styled Components gibi çözümler de düşünülebilir.
 
@@ -48,6 +48,6 @@
 ## 6. Entegrasyonlar
 
 *   **OpenAI API Entegrasyonu:** Güvenli API anahtarı yönetimi ve sunucu tarafı istekler.
-*   **Firebase/Supabase Entegrasyonu:** SDK kurulumu, kimlik doğrulama ve veritabanı işlemleri.
+*   **Firebase Entegrasyonu:** SDK kurulumu, kimlik doğrulama ve Firestore veritabanı işlemleri.
 
 Bu teknik bağlam, projenin geliştirme süreci boyunca güncellenecek ve detaylandırılacaktır. 

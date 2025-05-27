@@ -18,11 +18,11 @@ flowchart TD
 
     Doktor --> Doktor_Arayuzu[Next.js Frontend (Doktor Paneli)]
     Doktor_Arayuzu -- QR Kod Okuma İsteği --> API_Gateway_Doktor[Next.js API Rotaları (Backend)]
-    API_Gateway_Doktor -- QR Verisi --> Veritabani_Oku[Veritabanı (Firebase/Supabase - Özet Okuma)]
+    API_Gateway_Doktor -- QR Verisi --> Veritabani_Oku[Firestore (Firebase) - Özet Okuma]
     Veritabani_Oku -- Hasta Özeti --> API_Gateway_Doktor
     API_Gateway_Doktor -- Hasta Özeti --> Doktor_Arayuzu
 
-    API_Gateway -- Konuşma Kaydı (Gelecekte) --> Veritabani_Yaz[Veritabanı (Firebase/Supabase - Kayıt)]
+    API_Gateway -- Konuşma Kaydı (Gelecekte) --> Veritabanı_Yaz[Firestore (Firebase) - Kayıt]
 ```
 
 **Açıklamalar:**
@@ -31,7 +31,7 @@ flowchart TD
 *   **Next.js API Rotaları:** Frontend'den gelen istekleri işleyen, OpenAI API ile iletişim kuran, QR kod üreten ve veritabanı işlemleri yapan backend mantığını içerir. Next.js'in `pages/api` klasörü altında yer alır.
 *   **OpenAI API:** Hastanın girdiği semptomları analiz eden, ek sorular üreten ve ön yönlendirmeler/bilgiler sağlayan yapay zeka servisidir.
 *   **QR Kod Üretim Kütüphanesi:** Verilen metin (konuşma özeti) için QR kod oluşturan bir istemci veya sunucu tarafı kütüphanesi (örneğin, `qrcode.react` veya sunucu tarafında `qrcode`).
-*   **Veritabanı (Firebase/Supabase):** MVP'de öncelikle doktorun erişeceği konuşma özetlerini saklamak için kullanılabilir. Gelecekte kullanıcı hesapları, detaylı konuşma kayıtları ve analiz verileri için de kullanılacaktır.
+*   **Veritabanı (Firebase):** MVP'de öncelikle doktorun erişeceği konuşma özetlerini saklamak için kullanılacak. Gelecekte kullanıcı hesapları, detaylı konuşma kayıtları ve analiz verileri için de kullanılacaktır.
 
 ## 2. Temel Veri Akışı
 

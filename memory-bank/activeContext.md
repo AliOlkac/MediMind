@@ -7,28 +7,26 @@
     *   Platform: Web Uygulaması
     *   Frontend Framework: Next.js
     *   Yapay Zeka Entegrasyonu: OpenAI API
-    *   Veritabanı (BaaS): Firebase veya Supabase (Karar aşamasında)
-*   **İlk Adım Planlaması:** Next.js proje kurulumu ve seçilecek BaaS entegrasyonu.
+    *   Veritabanı (BaaS): Firebase (Karar verildi)
+*   **İlk Adım Planlaması:** Next.js proje kurulumu ve Firebase entegrasyonu.
 
 ## 2. Son Yapılan Değişiklikler ve Alınan Kararlar
 
 *   Proje için `memory-bank` oluşturulmasına karar verildi.
 *   MVP'nin web tabanlı olarak Next.js ile geliştirilmesine karar verildi.
 *   OpenAI API'sinin yapay zeka motoru olarak kullanılmasına karar verildi.
-*   Veritabanı için Firebase veya Supabase seçenekleri değerlendiriliyor.
+*   Veritabanı olarak Firebase seçildi.
 *   `projectbrief.md` ve `productContext.md` dosyalarının ilk içerikleri oluşturuldu.
 
 ## 3. Bir Sonraki Adımlar
 
-*   `memory-bank` içindeki diğer dosyaların (`systemPatterns.md`, `techContext.md`, `progress.md`) ilk içeriklerinin oluşturulması.
-*   Firebase ve Supabase arasında bir seçim yapılması.
-*   Next.js projesinin oluşturulması (`npx create-next-app@latest medi-mind-mvp`).
-*   Seçilen BaaS platformunun (Firebase/Supabase) Next.js projesine entegrasyonu için ilk adımların atılması.
+*   `memory-bank` içindeki diğer dosyaların (`systemPatterns.md`, `techContext.md`, `progress.md`) Firebase seçimine göre güncellenmesi (gerekirse).
+*   Next.js projesinin oluşturulması: `npx create-next-app@latest medi-mind-mvp`.
+*   Firebase projesinin oluşturulması ve Next.js projesine temel entegrasyonu için ilk adımların atılması.
 *   Temel UI/UX prensipleri ve hasta sohbet arayüzü için fikir alışverişi.
 
 ## 4. Aktif Tartışmalar ve Açık Sorular
 
-*   **Veritabanı Seçimi:** Firebase mi, Supabase mi MVP için daha uygun olur? (Aliqo'nun tercihi bekleniyor).
 *   **UI/UX Detayları:** Hasta sohbet arayüzü ve doktor paneli için temel tasarım yaklaşımları ne olmalı?
 *   **OpenAI API Kullanım Detayları:** Hangi OpenAI modelleri (örn: GPT-3.5-turbo, GPT-4) kullanılacak? İstek limitleri ve maliyetler nasıl yönetilecek?
 *   **Güvenlik Önlemleri:** MVP aşamasında hangi temel güvenlik önlemleri alınmalı (özellikle API anahtarları ve kullanıcı verileri için)?
