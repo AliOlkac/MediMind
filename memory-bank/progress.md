@@ -43,8 +43,9 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
 
 *   **Temel Kurulum:**
     *   [x] Veritabanı seçimi: Firebase olarak belirlendi.
-    *   [ ] Next.js projesinin oluşturulması: `npx create-next-app@latest medi-mind-mvp`.
-    *   [ ] Firebase projesinin oluşturulması ve Next.js projesine temel entegrasyonu.
+    *   [x] Next.js projesinin oluşturulması: `npx create-next-app@latest medi-mind-mvp`.
+    *   [x] Firebase projesinin oluşturulması ve Next.js projesine temel entegrasyonu.
+    *   [ ] Firestore bağlantısı ve temel veri işlemleri (okuma/yazma) kurulumu.
     *   [ ] Temel klasör yapısının (components, services, utils vb.) oluşturulması.
     *   [ ] ESLint ve Prettier kurulumu ve yapılandırılması.
 *   **Hasta Arayüzü Geliştirme (Sohbet Ekranı):**

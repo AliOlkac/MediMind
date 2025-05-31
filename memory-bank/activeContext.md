@@ -24,6 +24,8 @@
 *   Next.js projesinin oluşturulması: `npx create-next-app@latest medi-mind-mvp`.
 *   Firebase projesinin oluşturulması ve Next.js projesine temel entegrasyonu için ilk adımların atılması.
 *   Temel UI/UX prensipleri ve hasta sohbet arayüzü için fikir alışverişi.
+*   Next.js ve Firebase kurulumları tamamlandı.
+*   Sıradaki adım: Firestore bağlantısı ve temel veri işlemleri (okuma/yazma) kurulumu.
 
 ## 4. Aktif Tartışmalar ve Açık Sorular
 
