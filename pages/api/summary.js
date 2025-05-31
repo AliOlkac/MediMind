@@ -3,7 +3,7 @@
 
 import { db } from "../../src/lib/firebase";
 import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
-import { Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import QRCode from "qrcode";
 
 export default async function handler(req, res) {
@@ -35,21 +35,20 @@ export default async function handler(req, res) {
     messages.reverse();
 
     // Mesajları özetlemek için OpenAI API'sine gönder
-    const openai = new OpenAIApi(
-      new Configuration({ apiKey: process.env.OPENAI_API_KEY })
-    );
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
     // Sohbeti metin olarak birleştir
     const chatText = messages.map(m => `${m.rol}: ${m.mesaj}`).join("\n");
-    // OpenAI'ya özetleme prompt'u hazırla
-    const prompt = `Aşağıdaki hasta ve asistan sohbetini kısa, anlaşılır ve tıbbi olarak özetle:\n${chatText}`;
-    // OpenAI'dan özet iste
-    const completion = await openai.createCompletion({
-      model: "text-davinci-003",
-      prompt,
+    // OpenAI'ya özetleme için chat tabanlı prompt hazırla
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: "Sen bir tıbbi özetleyicisin. Sohbeti kısa ve anlaşılır özetle." },
+        { role: "user", content: chatText }
+      ],
       max_tokens: 120,
       temperature: 0.5
     });
-    const summary = completion.data.choices[0].text.trim();
+    const summary = completion.choices[0].message.content.trim();
 
     // Özet metnini QR kod olarak üret
     const qrDataUrl = await QRCode.toDataURL(summary);

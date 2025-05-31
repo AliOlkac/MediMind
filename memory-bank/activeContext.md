@@ -9,6 +9,7 @@
     *   Yapay Zeka Entegrasyonu: OpenAI API
     *   Veritabanı (BaaS): Firebase (Karar verildi)
 *   **İlk Adım Planlaması:** Next.js proje kurulumu ve Firebase entegrasyonu.
+*   Şu anda odaklanılan iş: Hasta sohbeti sonrası özet ve QR kod gösterimi.
 
 ## 2. Son Yapılan Değişiklikler ve Alınan Kararlar
 
@@ -26,6 +27,7 @@
 *   Temel UI/UX prensipleri ve hasta sohbet arayüzü için fikir alışverişi.
 *   Next.js ve Firebase kurulumları tamamlandı.
 *   Sıradaki adım: Firestore bağlantısı ve temel veri işlemleri (okuma/yazma) kurulumu.
+*   Sonraki adım: Doktor paneli için QR kod okuma ve özet gösterimi entegrasyonu.
 
 ## 4. Aktif Tartışmalar ve Açık Sorular
 

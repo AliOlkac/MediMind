@@ -52,6 +52,7 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
     *   [ ] Temel sohbet arayüzü bileşenlerinin (mesaj baloncukları, giriş alanı vb.) tasarlanması ve kodlanması.
     *   [ ] Kullanıcının mesaj gönderme işlevselliği.
     *   [ ] Yapay zekadan gelen mesajların arayüzde gösterilmesi.
+    *   [ ] Sohbet sonrası özet ve QR kod gösterimi (başlatıldı).
 *   **OpenAI API Entegrasyonu:**
     *   [ ] OpenAI API anahtarının güvenli bir şekilde ortam değişkenlerine eklenmesi.
     *   [ ] Kullanıcı girdisini OpenAI API'sine gönderecek ve yanıtı alacak bir Next.js API rotasının oluşturulması.
@@ -63,8 +64,8 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
     *   [ ] QR kodun arayüzde gösterilmesi.
 *   **Doktor Arayüzü Geliştirme (Panel):**
     *   [ ] Basit bir doktor paneli arayüzünün tasarlanması.
-    *   [ ] QR kod okuma işlevselliği için kütüphane entegrasyonu.
-    *   [ ] Okunan QR kod verisinden (konuşma özeti) bilgilerin panelde gösterilmesi.
+    *   [ ] QR kod okuma işlevselliği için kütüphane entegrasyonu (başlatılacak).
+    *   [ ] Okunan QR kod verisinden (özet metni) bilgilerin panelde gösterilmesi.
 *   **Veritabanı İşlemleri (MVP için opsiyonel/basit tutulabilir):**
     *   [ ] Konuşma özetlerinin (eğer QR kod içinde taşınmayacaksa) Firestore veritabanına kaydedilmesi.
     *   [ ] Doktor panelinde özetlerin Firestore'dan çekilmesi.
