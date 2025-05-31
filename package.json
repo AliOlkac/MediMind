@@ -9,13 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@blackbox-vision/react-qr-reader": "^5.0.0",
+    "@yudiel/react-qr-scanner": "^2.3.1",
     "firebase": "^11.8.1",
     "next": "15.3.3",
     "openai": "^5.0.1",
     "qrcode": "^1.5.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

@@ -1,9 +1,9 @@
 // components/DoctorQRReader.js
 // Bu bileşen, doktorun hastadan aldığı QR kodu okumasını ve özet metni ekranda görmesini sağlar.
-// Webcam ile QR kod okuma için '@blackbox-vision/react-qr-reader' kütüphanesini kullanır.
+// Kamera ile QR kod okuma için '@yudiel/react-qr-scanner' kütüphanesini kullanır.
 
 import React, { useState } from "react";
-import { QrReader } from "@blackbox-vision/react-qr-reader";
+import { Scanner } from "@yudiel/react-qr-scanner";
 
 export default function DoctorQRReader() {
   // Okunan QR kodun verisini ve hata durumunu state'te tutuyoruz
@@ -14,18 +14,18 @@ export default function DoctorQRReader() {
     <div style={{ textAlign: "center" }}>
       <h2>Hasta Özeti QR Kod Okuyucu</h2>
       <p>Hastadan aldığınız QR kodu kameraya gösterin.</p>
-      <div style={{ maxWidth: 300, margin: "0 auto" }}>
-        <QrReader
-          constraints={{ facingMode: "environment" }} // Arka kamera öncelikli
-          onResult={(result, err) => {
-            if (!!result) {
-              setQrData(result?.text);
+      <div style={{ maxWidth: 350, margin: "0 auto" }}>
+        <Scanner
+          onResult={(result) => {
+            if (result) {
+              setQrData(result);
               setError("");
             }
-            if (!!err && err.name !== "NotFoundException") {
-              setError("QR kod okunamadı: " + err.message);
-            }
           }}
+          onError={(err) => {
+            setError("QR kod okunamadı: " + err.message);
+          }}
+          video={{ facingMode: "environment" }} // Arka kamera öncelikli
           style={{ width: "100%" }}
         />
       </div>
