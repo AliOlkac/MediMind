@@ -1,45 +1,55 @@
 // pages/api/chat.js
-// Bu API route'u, hasta ile yapay zeka arasındaki sohbet mesajlarını Firestore'a kaydeder ve listeler.
+// Bu API route'u, frontend'den gelen mesajı LangChain ile OpenAI API'ya iletir ve cevabı döndürür.
 
-import { db } from "../../src/lib/firebase";
-import { collection, addDoc, getDocs, query, orderBy } from "firebase/firestore";
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
 
 export default async function handler(req, res) {
-  // POST: Yeni mesaj ekle
-  if (req.method === "POST") {
-    try {
-      // İstekten gelen mesajı al
-      const { userId, mesaj, rol } = req.body;
-      // Firestore'da 'chats' koleksiyonuna yeni bir belge ekle
-      const docRef = await addDoc(collection(db, "chats"), {
-        userId: userId || "anonim", // Kullanıcı ID'si yoksa anonim olarak kaydet
-        mesaj,
-        rol, // "hasta" veya "asistan"
-        zaman: new Date().toISOString()
-      });
-      return res.status(200).json({ success: true, id: docRef.id });
-    } catch (error) {
-      return res.status(500).json({ success: false, error: error.message });
-    }
+  // Sadece POST isteklerini kabul ediyoruz
+  if (req.method !== "POST") {
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 
-  // GET: Tüm mesajları sırayla getir
-  if (req.method === "GET") {
-    try {
-      // Mesajları zamana göre sıralı şekilde çek
-      const q = query(collection(db, "chats"), orderBy("zaman", "asc"));
-      const querySnapshot = await getDocs(q);
-      const data = [];
-      querySnapshot.forEach((doc) => {
-        data.push({ id: doc.id, ...doc.data() });
-      });
-      return res.status(200).json({ success: true, data });
-    } catch (error) {
-      return res.status(500).json({ success: false, error: error.message });
+  try {
+    // İstekten gelen mesajları al
+    const { messages } = req.body;
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ success: false, error: "messages dizisi zorunlu." });
     }
-  }
 
-  // Diğer HTTP metodları için hata döndür
-  res.setHeader("Allow", ["GET", "POST"]);
-  res.status(405).end(`Method ${req.method} Not Allowed`);
+    // Son 15 mesajı alıyoruz (diyalogun daha fazla kısmını modele iletmek için)
+    const lastMessages = messages.slice(-15);
+
+    // LangChain ile OpenAI chat modelini başlat
+    const chat = new ChatOpenAI({
+      model: "gpt-4o-mini",
+      temperature: 0.7,
+      openAIApiKey: process.env.OPENAI_API_KEY
+    });
+
+    // System prompt: Akıllı ve akış kontrollü asistan
+    const systemPrompt = new SystemMessage(
+      "Sen bir tıbbi asistan ve sağlık danışmanısın. Hastanın şikayetini analiz et. Öncelikle, sadece gerekli durumlarda, şikayete özel kısa ve net sorular sorarak bilgi toplamaya çalış. Eğer hasta sorularına yeterli ve mantıklı cevaplar verdiyse, artık yeni soru sorma ve olası nedenleri, ihtimalleri ve önerileri açıkla. Her zaman önceki cevapları dikkate al, aynı soruları tekrar etme. Kesin teşhis koyma, ancak tıbbi bilgiye dayalı olarak hastayı bilgilendir ve yönlendir. Gerektiğinde hangi branş doktora başvurması gerektiğini öner. Empati göster, hastayı rahatlat ve anlaşılır, yardımsever bir dil kullan. Acil bir durum ihtimali varsa mutlaka doktora başvurmasını öner."
+    );
+
+    // Mesajları LangChain formatına çevir
+    const lcMessages = [
+      systemPrompt,
+      ...lastMessages.map(m =>
+        m.isUser
+          ? new HumanMessage(m.text)
+          : new AIMessage(m.text)
+      )
+    ];
+
+    // LangChain ile OpenAI'ya istek gönder
+    const response = await chat.invoke(lcMessages);
+    const reply = response.content.trim();
+
+    // Sonucu döndür
+    return res.status(200).json({ success: true, reply });
+  } catch (error) {
+    return res.status(500).json({ success: false, error: error.message });
+  }
 } 

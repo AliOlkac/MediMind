@@ -1,9 +1,8 @@
 // pages/api/summary.js
-// Bu API route'u, son X sohbet mesajını özetler ve özet metnini QR kod olarak döndürür.
+// Bu API route'u, frontend'den gelen sohbet mesajlarını özetler ve özet metnini QR kod olarak döndürür.
 
-import { db } from "../../src/lib/firebase";
-import { collection, getDocs, query, orderBy, limit } from "firebase/firestore";
-import OpenAI from "openai";
+import { ChatOpenAI } from "@langchain/openai";
+import { HumanMessage, AIMessage, SystemMessage } from "@langchain/core/messages";
 import QRCode from "qrcode";
 
 export default async function handler(req, res) {
@@ -14,41 +13,40 @@ export default async function handler(req, res) {
   }
 
   try {
-    // İstekten kullanıcı ID'si ve özetlenecek mesaj sayısını al
-    const { userId, mesajSayisi = 10 } = req.body;
-    if (!userId) {
-      return res.status(400).json({ success: false, error: "userId zorunlu." });
+    // İstekten gelen mesajları al
+    const { messages } = req.body;
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ success: false, error: "messages dizisi zorunlu." });
     }
 
-    // Firestore'dan son X mesajı çek
-    const q = query(
-      collection(db, "chats"),
-      orderBy("zaman", "desc"),
-      limit(mesajSayisi)
-    );
-    const querySnapshot = await getDocs(q);
-    const messages = [];
-    querySnapshot.forEach((doc) => {
-      messages.push(doc.data());
-    });
-    // Mesajları eskiye göre sırala (en yeni en sonda olacak şekilde)
-    messages.reverse();
+    // Son 10 mesajı alıyoruz (özet için yeterli)
+    const lastMessages = messages.slice(-10);
 
-    // Mesajları özetlemek için OpenAI API'sine gönder
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-    // Sohbeti metin olarak birleştir
-    const chatText = messages.map(m => `${m.rol}: ${m.mesaj}`).join("\n");
-    // OpenAI'ya özetleme için chat tabanlı prompt hazırla
-    const completion = await openai.chat.completions.create({
+    // LangChain ile OpenAI chat modelini başlat
+    const chat = new ChatOpenAI({
       model: "gpt-4o-mini",
-      messages: [
-        { role: "system", content: "Sen bir tıbbi özetleyicisin. Sohbeti kısa ve anlaşılır özetle." },
-        { role: "user", content: chatText }
-      ],
-      max_tokens: 120,
-      temperature: 0.5
+      temperature: 0.4,
+      openAIApiKey: process.env.OPENAI_API_KEY
     });
-    const summary = completion.choices[0].message.content.trim();
+
+    // System prompt: Sohbeti kısa ve anlaşılır özetle
+    const systemPrompt = new SystemMessage(
+      "Aşağıda hasta ile tıbbi asistan arasında geçen sohbetin kısa, anlaşılır ve tıbbi olarak özetini oluştur. Gereksiz detayları çıkar, önemli şikayetleri ve önerileri vurgula."
+    );
+
+    // Mesajları LangChain formatına çevir
+    const lcMessages = [
+      systemPrompt,
+      ...lastMessages.map(m =>
+        m.isUser
+          ? new HumanMessage(m.text)
+          : new AIMessage(m.text)
+      )
+    ];
+
+    // OpenAI ile özet oluştur
+    const response = await chat.invoke(lcMessages);
+    const summary = response.content.trim();
 
     // Özet metnini QR kod olarak üret
     const qrDataUrl = await QRCode.toDataURL(summary);

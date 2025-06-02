@@ -53,6 +53,8 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
     *   [ ] Kullanıcının mesaj gönderme işlevselliği.
     *   [ ] Yapay zekadan gelen mesajların arayüzde gösterilmesi.
     *   [ ] Sohbet sonrası özet ve QR kod gösterimi (başlatıldı).
+    *   [ ] Frontend: Su balonu efektli, animasyonlu, klasik mesajlaşma uygulamalarından farklı, modern sohbet arayüzü tasarımı başlatıldı. Framer Motion ile animasyonlar entegre edilecek. Karşılama mesajı ve özel akış planlandı.
+    *   [ ] Frontend sohbet akışı güncellendi: Sohbet sonunda asistan otomatik olarak 'Başka bir şikayetiniz veya sorunuz var mı?' mesajı ile bitirme yönlendirmesi yapacak, hasta 'hayır' dediğinde animasyonlu 'Sohbeti Bitir ve QR Kodunu Oluştur' butonu çıkacak. Efektler ve animasyonlar Framer Motion ile zenginleştirilecek.
 *   **OpenAI API Entegrasyonu:**
     *   [ ] OpenAI API anahtarının güvenli bir şekilde ortam değişkenlerine eklenmesi.
     *   [ ] Kullanıcı girdisini OpenAI API'sine gönderecek ve yanıtı alacak bir Next.js API rotasının oluşturulması.
@@ -72,6 +74,8 @@ Proje özeti (`projectbrief.md`) dosyasında tanımlanan MVP kapsamındaki temel
 *   **Test ve Dağıtım:**
     *   [ ] Temel işlevlerin manuel testi.
     *   [ ] Vercel veya Netlify üzerine ilk dağıtım (deployment).
+*   [x] QR kod okuma bileşeni React 19 ile uyumlu şekilde tamamlandı.
+*   [x] Doktor paneli canlı test edildi.
 
 ## 5. Bilinen Sorunlar / Engeller
 
